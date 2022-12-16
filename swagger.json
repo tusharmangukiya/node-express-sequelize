@@ -1,0 +1,206 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Sample project",
+        "description": "Node.js + Express.js + sequelize Application API",
+        "license": {
+            "name": "Node",
+            "url": "https://node.com/"
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "Bearer": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "Authorization"
+        }
+    },
+    "security": [
+        {
+            "Bearer": []
+        }
+    ],
+    "paths": {
+        "/auth/signup": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Signup API",
+                "security": [],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "Create new account",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/SignUp"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Create new post",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "_id": {
+                                                    "type": "string"
+                                                },
+                                                "firstName": {
+                                                    "type": "string"
+                                                },
+                                                "lastName": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "role": {
+                                                    "type": "string"
+                                                },
+                                                "token": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/signin": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login API",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "Login account",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "email",
+                                "password"
+                            ],
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login account",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/LoginResponse"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "SignUp": {
+            "required": [
+                "firstName",
+                "lastName",
+                "email",
+                "password",
+                "role"
+            ],
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "LoginResponse": {
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "object",
+                    "properties": {
+                        "_id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "_id": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
